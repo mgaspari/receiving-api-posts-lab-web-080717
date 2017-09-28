@@ -13,3 +13,30 @@
   <%= f.text_field :inventory %>
   <%= f.submit "submit" %>
 <% end %>
+<p id="put_here"></p>
+
+
+<script type="text/javascript" charset="utf-8">
+$(function () {
+  $('#new_product').submit(function(e){
+    e.preventDefault()
+    var values = $(this).serialize();
+
+    var posting = $.post('/products', values);
+    posting.done(function(data) {
+      console.log(data)
+      $('#put_here').text(data["name"])
+      // $('#put_here').text(`$${data["price"]}`)
+      //  ${data["price"]} ${data["inventory"]} ${data["description"]}
+      //can display on page
+      });
+      // e.preventDefault()
+      // var values = JSON.stringify($(e.target).serializeArray())
+      // // debugger
+      // fetch("/products.json", {
+      //   method: "POST",
+      //   body: values
+      // } ).then( res => res.json()).then(res => console.log(res))
+  })
+});
+</script>
